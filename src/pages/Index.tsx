@@ -1,33 +1,87 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Sparkles, Brain, FileText, TrendingUp, ArrowRight, BookOpen, Users, Zap } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { 
+  Sparkles, 
+  Brain, 
+  FileText, 
+  TrendingUp, 
+  ArrowRight, 
+  MessageSquare,
+  UserPlus,
+  Upload,
+  Bot,
+  Quote
+} from "lucide-react";
 import { BackgroundOrbs } from "@/components/ui/BackgroundOrbs";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlowButton } from "@/components/ui/GlowButton";
+
+const AnimatedSection = ({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const Index = () => {
   const features = [
     {
       icon: Brain,
-      title: "AI-Powered Learning",
-      description: "Get personalized explanations tailored to your curriculum and learning level",
+      title: "Personalized AI for Students",
+      description: "AI adapts explanations based on your branch, semester, and learning level.",
     },
     {
       icon: FileText,
-      title: "Upload Study Materials",
-      description: "Upload PDFs, docs, and presentations for AI-powered Q&A sessions",
+      title: "Learn from Your Own Materials",
+      description: "Upload PDFs, PPTs, and notes. The AI learns from your files and teaches you.",
+    },
+    {
+      icon: MessageSquare,
+      title: "AI Chat Tutor",
+      description: "Ask doubts anytime. Get clear explanations, summaries, and revisions.",
     },
     {
       icon: TrendingUp,
-      title: "Track Progress",
-      description: "Monitor your learning journey with detailed analytics and insights",
+      title: "Track Your Learning Progress",
+      description: "Visual dashboards to see what you've learned and where to improve.",
     },
   ];
 
-  const stats = [
-    { value: "10K+", label: "Active Students" },
-    { value: "500K+", label: "Questions Answered" },
-    { value: "95%", label: "Satisfaction Rate" },
+  const quotes = [
+    "Every student learns differently. AI makes sure you're understood.",
+    "Your syllabus. Your pace. Your AI tutor.",
+    "Turn confusion into clarity with personalized learning.",
+    "Not just learning faster — learning smarter.",
+    "AI that learns how you learn.",
+  ];
+
+  const steps = [
+    {
+      icon: UserPlus,
+      title: "Sign Up & Add Your Academic Details",
+      description: "Create your account and tell us about your course and semester.",
+    },
+    {
+      icon: Upload,
+      title: "Upload Study Materials",
+      description: "Add your PDFs, PPTs, and notes for personalized learning.",
+    },
+    {
+      icon: Bot,
+      title: "Chat with Your Personal AI Tutor",
+      description: "Ask questions and get explanations tailored just for you.",
+    },
   ];
 
   return (
@@ -38,169 +92,235 @@ const Index = () => {
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative z-20 flex items-center justify-between p-4 md:p-6"
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50"
       >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-primary-foreground" />
+        <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:px-6">
+          <div className="flex items-center gap-3">
+            <motion.div 
+              className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <Sparkles className="w-5 h-5 text-primary-foreground" />
+            </motion.div>
+            <span className="font-display font-bold text-xl gradient-text">AI Personalized Learning</span>
           </div>
-          <span className="font-display font-bold text-xl gradient-text">LearnAI</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <Link to="/login">
-            <GlowButton variant="ghost" size="sm">
-              Sign In
-            </GlowButton>
-          </Link>
-          <Link to="/signup">
-            <GlowButton variant="primary" size="sm">
-              Get Started
-            </GlowButton>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/login">
+              <GlowButton variant="ghost" size="sm">
+                Login
+              </GlowButton>
+            </Link>
+            <Link to="/signup">
+              <GlowButton variant="primary" size="sm">
+                Sign Up
+              </GlowButton>
+            </Link>
+          </div>
         </div>
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-4 md:px-6 pt-12 md:pt-20 pb-20">
+      <section className="relative z-10 px-4 md:px-6 pt-32 md:pt-40 pb-20 min-h-screen flex items-center">
         <div className="max-w-5xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6"
+            transition={{ duration: 0.6 }}
+            className="mb-8"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm">
-              <Zap className="w-4 h-4" />
-              Powered by Advanced AI
-            </span>
+            <motion.div
+              className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-6"
+              animate={{ 
+                boxShadow: [
+                  "0 0 20px hsl(var(--primary) / 0.4)",
+                  "0 0 40px hsl(var(--primary) / 0.6)",
+                  "0 0 20px hsl(var(--primary) / 0.4)"
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Brain className="w-10 h-10 text-primary-foreground" />
+            </motion.div>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
             className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight"
           >
-            Your Personal
+            Personalized AI Learning,
             <br />
-            <span className="gradient-text">AI Study Companion</span>
+            <span className="gradient-text">Designed for Every Student</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
-            Upload your study materials and get instant, personalized explanations. 
-            Our AI adapts to your curriculum, semester, and learning style.
+            Learn smarter, not harder.
+            <br />
+            <span className="text-foreground/80">Your personal AI tutor that understands your syllabus, your pace, and your goals.</span>
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link to="/signup">
               <GlowButton variant="primary" size="lg" className="min-w-[200px]">
-                Start Learning Free
+                Get Started
                 <ArrowRight className="w-5 h-5" />
               </GlowButton>
             </Link>
             <Link to="/login">
               <GlowButton variant="ghost" size="lg" className="min-w-[200px]">
-                <BookOpen className="w-5 h-5" />
-                Explore Demo
+                Login
               </GlowButton>
             </Link>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
+            >
+              <motion.div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="relative z-10 px-4 md:px-6 pb-20"
-      >
-        <div className="max-w-4xl mx-auto">
-          <GlassCard className="p-8">
-            <div className="grid grid-cols-3 gap-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  className="text-center"
-                >
-                  <p className="text-3xl md:text-4xl font-display font-bold gradient-text mb-1">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </GlassCard>
-        </div>
-      </motion.section>
-
-      {/* Features */}
-      <section className="relative z-10 px-4 md:px-6 pb-20">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Why Students Love <span className="gradient-text">LearnAI</span>
+      {/* Features Section */}
+      <section className="relative z-10 px-4 md:px-6 py-20">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
+              What This Platform <span className="gradient-text">Includes</span>
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Experience a smarter way to study with features designed for modern learners
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              Everything you need for a smarter, more personalized learning experience
             </p>
-          </motion.div>
+          </AnimatedSection>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
-              >
-                <GlassCard className="p-6 h-full hover:scale-[1.02] transition-transform duration-300">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary mb-4 flex items-center justify-center">
-                    <feature.icon className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-xl font-display font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+              <AnimatedSection key={feature.title} delay={index * 0.1}>
+                <GlassCard className="p-8 h-full group hover:scale-[1.02] transition-all duration-300">
+                  <motion.div 
+                    className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary mb-5 flex items-center justify-center"
+                    whileHover={{ rotate: 10, scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <feature.icon className="w-7 h-7 text-primary-foreground" />
+                  </motion.div>
+                  <h3 className="text-xl font-display font-semibold mb-3 group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                 </GlassCard>
-              </motion.div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative z-10 px-4 md:px-6 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="max-w-3xl mx-auto"
-        >
-          <GlassCard glow className="p-8 md:p-12 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary mx-auto mb-6 flex items-center justify-center">
-              <Users className="w-8 h-8 text-primary-foreground" />
-            </div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">
+      {/* Quotes Section */}
+      <section className="relative z-10 px-4 md:px-6 py-20 overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Why Students <span className="gradient-text">Love Us</span>
+            </h2>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quotes.map((quote, index) => (
+              <AnimatedSection key={index} delay={index * 0.1}>
+                <GlassCard className="p-6 h-full flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300">
+                  <Quote className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                  <p className="text-foreground/90 italic leading-relaxed">{quote}</p>
+                </GlassCard>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="relative z-10 px-4 md:px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
+              How It <span className="gradient-text">Works</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+              Get started in just three simple steps
+            </p>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {steps.map((step, index) => (
+              <AnimatedSection key={step.title} delay={index * 0.2}>
+                <div className="relative">
+                  {/* Connector line */}
+                  {index < steps.length - 1 && (
+                    <div className="hidden md:block absolute top-14 left-[60%] w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent" />
+                  )}
+                  
+                  <GlassCard className="p-8 text-center relative z-10 hover:scale-105 transition-transform duration-300">
+                    {/* Step number */}
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-bold text-sm">
+                      {index + 1}
+                    </div>
+                    
+                    <motion.div 
+                      className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 mx-auto mb-5 flex items-center justify-center"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <step.icon className="w-8 h-8 text-primary" />
+                    </motion.div>
+                    <h3 className="text-lg font-display font-semibold mb-3">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm">{step.description}</p>
+                  </GlassCard>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative z-10 px-4 md:px-6 py-20">
+        <AnimatedSection className="max-w-3xl mx-auto">
+          <GlassCard glow className="p-10 md:p-14 text-center">
+            <motion.div 
+              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary mx-auto mb-6 flex items-center justify-center"
+              animate={{ 
+                scale: [1, 1.05, 1],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Sparkles className="w-10 h-10 text-primary-foreground" />
+            </motion.div>
+            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
               Ready to Transform Your Learning?
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto text-lg">
               Join thousands of students already using AI to master their subjects faster and more effectively.
             </p>
             <Link to="/signup">
@@ -210,12 +330,27 @@ const Index = () => {
               </GlowButton>
             </Link>
           </GlassCard>
-        </motion.div>
+        </AnimatedSection>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 p-6 text-center text-sm text-muted-foreground">
-        <p>© 2024 LearnAI. Empowering students with AI-driven learning.</p>
+      <footer className="relative z-10 border-t border-border/50 mt-10">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <span className="font-display font-semibold gradient-text">AI Personalized Learning</span>
+            </div>
+            <p className="text-muted-foreground text-sm text-center">
+              Empowering students with AI-driven personalized education.
+            </p>
+            <p className="text-muted-foreground text-sm">
+              © 2024 AI Personalized Learning. All rights reserved.
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
