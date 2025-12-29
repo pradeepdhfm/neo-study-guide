@@ -9,7 +9,7 @@ import { GlowInput } from "@/components/ui/GlowInput";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
-const yearOptions = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"];
+const yearOptions = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
 const semesterOptions = ["1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester"];
 const branchOptions = [
   "Computer Science",
