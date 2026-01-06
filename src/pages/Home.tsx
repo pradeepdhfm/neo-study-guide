@@ -152,7 +152,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen flex relative">
+    <div className="min-h-screen flex relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <BackgroundOrbs />
 
       {/* Sidebar */}
@@ -165,44 +165,35 @@ const Home = () => {
             transition={{ duration: 0.3 }}
             className="fixed md:relative z-20 w-72 h-screen"
           >
-            <div className="glass-card h-full rounded-none md:rounded-r-2xl p-4 flex flex-col">
+            <div className="h-full rounded-none md:rounded-r-2xl p-4 flex flex-col bg-slate-900/80 backdrop-blur-xl border-r border-slate-700/50">
               {/* Logo */}
               <div className="flex items-center gap-3 mb-6 p-2">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                  <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="font-display font-bold text-lg gradient-text">LearnAI</h1>
-                  <p className="text-xs text-muted-foreground">Smart Learning</p>
+                  <h1 className="font-display font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">LearnAI</h1>
+                  <p className="text-xs text-slate-400">Smart Learning</p>
                 </div>
               </div>
 
-              {/* User Info */}
-              <div className="glass-card p-4 mb-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <span className="text-primary-foreground font-semibold">
-                      {user?.firstName?.[0]}{user?.lastName?.[0]}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{user?.firstName} {user?.lastName}</p>
-                    <p className="text-xs text-muted-foreground truncate">{studentDetails?.branch}</p>
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground">
+              {/* Academic Info Card - No Profile Pic */}
+              <div className="p-4 mb-4 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                <p className="text-xs text-cyan-400 font-medium mb-1">Academic Details</p>
+                <p className="text-sm text-slate-300">{studentDetails?.branch}</p>
+                <p className="text-xs text-slate-500 mt-1">
                   {studentDetails?.yearOfStudy} • {studentDetails?.semester}
                 </p>
               </div>
 
               {/* Uploaded Files */}
               <div className="flex-1 overflow-hidden flex flex-col">
-                <h3 className="text-sm font-medium text-muted-foreground mb-3 px-2">
+                <h3 className="text-sm font-medium text-slate-400 mb-3 px-2">
                   Study Materials ({uploadedFiles.length})
                 </h3>
                 <div className="flex-1 overflow-y-auto space-y-2 pr-2">
                   {uploadedFiles.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">
+                    <div className="text-center py-8 text-slate-500">
                       <FileText className="w-10 h-10 mx-auto mb-2 opacity-50" />
                       <p className="text-sm">No files uploaded yet</p>
                     </div>
@@ -212,18 +203,18 @@ const Home = () => {
                         key={file.id}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
+                        className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/30 transition-colors group"
                       >
-                        <File className="w-4 h-4 text-primary flex-shrink-0" />
+                        <File className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm truncate">{file.name}</p>
-                          <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
+                          <p className="text-sm truncate text-slate-300">{file.name}</p>
+                          <p className="text-xs text-slate-500">{formatFileSize(file.size)}</p>
                         </div>
                         <button
                           onClick={() => removeFile(file.id)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-destructive/20 rounded"
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-red-500/20 rounded"
                         >
-                          <X className="w-4 h-4 text-destructive" />
+                          <X className="w-4 h-4 text-red-400" />
                         </button>
                       </motion.div>
                     ))
@@ -253,17 +244,17 @@ const Home = () => {
               </div>
 
               {/* Bottom Actions */}
-              <div className="mt-4 pt-4 border-t border-border space-y-2">
+              <div className="mt-4 pt-4 border-t border-slate-700/50 space-y-2">
                 <button
                   onClick={() => navigate("/profile")}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors text-sm"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800/50 transition-colors text-sm text-slate-300"
                 >
-                  <Settings className="w-4 h-4" />
+                  <Settings className="w-4 h-4 text-slate-400" />
                   Profile & Progress
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-destructive/10 transition-colors text-sm text-destructive"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-500/10 transition-colors text-sm text-red-400"
                 >
                   <LogOut className="w-4 h-4" />
                   Logout
@@ -277,27 +268,27 @@ const Home = () => {
       {/* Main Chat Area */}
       <main className="flex-1 flex flex-col min-h-screen z-10">
         {/* Header */}
-        <header className="glass-card rounded-none md:rounded-b-2xl p-4 flex items-center gap-4">
+        <header className="rounded-none md:rounded-b-2xl p-4 flex items-center gap-4 bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/50">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 rounded-xl hover:bg-muted transition-colors"
+            className="p-2 rounded-xl hover:bg-slate-800 transition-colors text-slate-300"
           >
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex-1">
-            <h2 className="font-display font-semibold">AI Study Assistant</h2>
-            <p className="text-xs text-muted-foreground">
+            <h2 className="font-display font-semibold text-white">AI Study Assistant</h2>
+            <p className="text-xs text-slate-400">
               Ask questions about your uploaded materials
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm text-muted-foreground">Online</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
+            <span className="text-sm text-slate-400">Online</span>
           </div>
-          <div className="flex items-center gap-3 pl-3 border-l border-border">
+          <div className="flex items-center gap-3 pl-4 border-l border-slate-700/50">
             <div className="text-right">
-              <p className="font-medium text-sm">{user?.firstName} {user?.lastName}</p>
-              <p className="text-xs text-muted-foreground">{studentDetails?.branch}</p>
+              <p className="font-medium text-sm text-white">{user?.firstName} {user?.lastName}</p>
+              <p className="text-xs text-cyan-400">{studentDetails?.branch}</p>
             </div>
           </div>
         </header>
@@ -316,12 +307,12 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center"
+                className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center"
               >
-                <div className="glass-card p-12 text-center">
-                  <Upload className="w-16 h-16 mx-auto mb-4 text-primary animate-bounce" />
-                  <h3 className="text-xl font-display font-semibold mb-2">Drop your files here</h3>
-                  <p className="text-muted-foreground">PDF, DOCX, PPT supported</p>
+                <div className="p-12 text-center rounded-2xl bg-slate-900/90 border border-cyan-500/30 shadow-xl shadow-cyan-500/10">
+                  <Upload className="w-16 h-16 mx-auto mb-4 text-cyan-400 animate-bounce" />
+                  <h3 className="text-xl font-display font-semibold mb-2 text-white">Drop your files here</h3>
+                  <p className="text-slate-400">PDF, DOCX, PPT supported</p>
                 </div>
               </motion.div>
             )}
@@ -338,25 +329,25 @@ const Home = () => {
               <div
                 className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                   message.role === "user"
-                    ? "bg-gradient-to-br from-primary to-secondary"
-                    : "bg-muted"
+                    ? "bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20"
+                    : "bg-slate-800 border border-slate-700"
                 }`}
               >
                 {message.role === "user" ? (
-                  <User className="w-5 h-5 text-primary-foreground" />
+                  <User className="w-5 h-5 text-white" />
                 ) : (
-                  <Bot className="w-5 h-5 text-primary" />
+                  <Bot className="w-5 h-5 text-cyan-400" />
                 )}
               </div>
               <div
                 className={`max-w-[70%] p-4 rounded-2xl ${
                   message.role === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-ai"
+                    ? "bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20"
+                    : "bg-slate-800/80 border border-slate-700/50 text-slate-200"
                 }`}
               >
                 <p className="whitespace-pre-wrap">{message.content}</p>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className={`text-xs mt-2 ${message.role === "user" ? "text-cyan-100" : "text-slate-500"}`}>
                   {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </p>
               </div>
@@ -369,23 +360,23 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               className="flex gap-3"
             >
-              <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-                <Bot className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
+                <Bot className="w-5 h-5 text-cyan-400" />
               </div>
-              <div className="chat-bubble-ai p-4 rounded-2xl">
+              <div className="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl">
                 <div className="flex gap-1">
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-primary"
+                    className="w-2 h-2 rounded-full bg-cyan-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                   />
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-primary"
+                    className="w-2 h-2 rounded-full bg-cyan-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
                   />
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-primary"
+                    className="w-2 h-2 rounded-full bg-cyan-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
                   />
@@ -398,12 +389,12 @@ const Home = () => {
 
         {/* Input Area */}
         <div className="p-4">
-          <GlassCard className="p-2 flex items-end gap-2">
+          <div className="p-2 flex items-end gap-2 rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-lg">
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 rounded-xl hover:bg-muted transition-colors"
+              className="p-3 rounded-xl hover:bg-slate-800 transition-colors"
             >
-              <Paperclip className="w-5 h-5 text-muted-foreground" />
+              <Paperclip className="w-5 h-5 text-slate-400" />
             </button>
             <textarea
               value={input}
@@ -415,19 +406,17 @@ const Home = () => {
                 }
               }}
               placeholder="Ask about your study materials..."
-              className="flex-1 bg-transparent resize-none outline-none text-foreground placeholder:text-muted-foreground max-h-32 min-h-[44px] py-3 px-2"
+              className="flex-1 bg-transparent resize-none outline-none text-white placeholder:text-slate-500 max-h-32 min-h-[44px] py-3 px-2"
               rows={1}
             />
-            <GlowButton
-              variant="primary"
-              size="md"
+            <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="rounded-xl"
+              className="p-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20"
             >
-              <Send className="w-5 h-5" />
-            </GlowButton>
-          </GlassCard>
+              <Send className="w-5 h-5 text-white" />
+            </button>
+          </div>
         </div>
       </main>
     </div>
