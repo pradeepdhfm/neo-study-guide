@@ -152,8 +152,13 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen flex relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <BackgroundOrbs />
+    <div className="min-h-screen flex relative bg-[#0a0a0f]">
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-fuchsia-950/20" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-fuchsia-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
 
       {/* Sidebar */}
       <AnimatePresence>
@@ -163,39 +168,39 @@ const Home = () => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed md:relative z-20 w-72 h-screen"
+            className="fixed md:relative z-20 w-64 h-screen"
           >
-            <div className="h-full rounded-none md:rounded-r-2xl p-4 flex flex-col bg-slate-900/80 backdrop-blur-xl border-r border-slate-700/50">
+            <div className="h-full rounded-none md:rounded-r-xl p-3 flex flex-col bg-[#111118]/90 backdrop-blur-xl border-r border-white/5">
               {/* Logo */}
-              <div className="flex items-center gap-3 mb-6 p-2">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                  <Sparkles className="w-5 h-5 text-white" />
+              <div className="flex items-center gap-2 mb-4 p-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h1 className="font-display font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">LearnAI</h1>
-                  <p className="text-xs text-slate-400">Smart Learning</p>
+                  <h1 className="font-medium text-sm text-white/90">LearnAI</h1>
+                  <p className="text-[10px] text-white/40 font-light">Smart Learning</p>
                 </div>
               </div>
 
-              {/* Academic Info Card - No Profile Pic */}
-              <div className="p-4 mb-4 rounded-xl bg-slate-800/50 border border-slate-700/50">
-                <p className="text-xs text-cyan-400 font-medium mb-1">Academic Details</p>
-                <p className="text-sm text-slate-300">{studentDetails?.branch}</p>
-                <p className="text-xs text-slate-500 mt-1">
+              {/* Academic Info */}
+              <div className="p-3 mb-3 rounded-lg bg-white/5 border border-white/5">
+                <p className="text-[10px] text-violet-400/80 font-light mb-0.5">Academic</p>
+                <p className="text-xs text-white/70 font-light">{studentDetails?.branch}</p>
+                <p className="text-[10px] text-white/40 font-light mt-0.5">
                   {studentDetails?.yearOfStudy} • {studentDetails?.semester}
                 </p>
               </div>
 
               {/* Uploaded Files */}
               <div className="flex-1 overflow-hidden flex flex-col">
-                <h3 className="text-sm font-medium text-slate-400 mb-3 px-2">
-                  Study Materials ({uploadedFiles.length})
+                <h3 className="text-[10px] font-light text-white/40 mb-2 px-1">
+                  Materials ({uploadedFiles.length})
                 </h3>
-                <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+                <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">
                   {uploadedFiles.length === 0 ? (
-                    <div className="text-center py-8 text-slate-500">
-                      <FileText className="w-10 h-10 mx-auto mb-2 opacity-50" />
-                      <p className="text-sm">No files uploaded yet</p>
+                    <div className="text-center py-6 text-white/30">
+                      <FileText className="w-8 h-8 mx-auto mb-1.5 opacity-40" />
+                      <p className="text-[10px] font-light">No files yet</p>
                     </div>
                   ) : (
                     uploadedFiles.map((file) => (
@@ -203,18 +208,18 @@ const Home = () => {
                         key={file.id}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/30 transition-colors group"
+                        className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-colors group"
                       >
-                        <File className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                        <File className="w-3 h-3 text-violet-400/70 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm truncate text-slate-300">{file.name}</p>
-                          <p className="text-xs text-slate-500">{formatFileSize(file.size)}</p>
+                          <p className="text-[11px] truncate text-white/60 font-light">{file.name}</p>
+                          <p className="text-[9px] text-white/30 font-light">{formatFileSize(file.size)}</p>
                         </div>
                         <button
                           onClick={() => removeFile(file.id)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-red-500/20 rounded"
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 hover:bg-red-500/20 rounded"
                         >
-                          <X className="w-4 h-4 text-red-400" />
+                          <X className="w-3 h-3 text-red-400/70" />
                         </button>
                       </motion.div>
                     ))
@@ -222,7 +227,7 @@ const Home = () => {
                 </div>
 
                 {/* Upload Button */}
-                <div className="mt-4">
+                <div className="mt-3">
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -231,32 +236,30 @@ const Home = () => {
                     onChange={(e) => handleFileUpload(e.target.files)}
                     className="hidden"
                   />
-                  <GlowButton
-                    variant="secondary"
-                    size="md"
-                    className="w-full"
+                  <button
                     onClick={() => fileInputRef.current?.click()}
+                    className="w-full flex items-center justify-center gap-1.5 p-2 rounded-lg bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/20 text-violet-300 text-xs font-light transition-colors"
                   >
-                    <Upload className="w-4 h-4" />
-                    Upload Materials
-                  </GlowButton>
+                    <Upload className="w-3 h-3" />
+                    Upload
+                  </button>
                 </div>
               </div>
 
               {/* Bottom Actions */}
-              <div className="mt-4 pt-4 border-t border-slate-700/50 space-y-2">
+              <div className="mt-3 pt-3 border-t border-white/5 space-y-1">
                 <button
                   onClick={() => navigate("/profile")}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800/50 transition-colors text-sm text-slate-300"
+                  className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-white/5 transition-colors text-[11px] text-white/50 font-light"
                 >
-                  <Settings className="w-4 h-4 text-slate-400" />
-                  Profile & Progress
+                  <Settings className="w-3 h-3" />
+                  Profile
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-500/10 transition-colors text-sm text-red-400"
+                  className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-red-500/10 transition-colors text-[11px] text-red-400/70 font-light"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-3 h-3" />
                   Logout
                 </button>
               </div>
@@ -268,34 +271,40 @@ const Home = () => {
       {/* Main Chat Area */}
       <main className="flex-1 flex flex-col min-h-screen z-10">
         {/* Header */}
-        <header className="rounded-none md:rounded-b-2xl p-4 flex items-center gap-4 bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/50">
+        <header className="p-3 flex items-center gap-3 bg-[#111118]/80 backdrop-blur-xl border-b border-white/5">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 rounded-xl hover:bg-slate-800 transition-colors text-slate-300"
+            className="p-1.5 rounded-lg hover:bg-white/5 transition-colors text-white/50"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-4 h-4" />
           </button>
           <div className="flex-1">
-            <h2 className="font-display font-semibold text-white">AI Study Assistant</h2>
-            <p className="text-xs text-slate-400">
-              Ask questions about your uploaded materials
+            <h2 className="text-sm font-light text-white/90">AI Assistant</h2>
+            <p className="text-[10px] text-white/40 font-light">
+              Ask about your materials
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
-            <span className="text-sm text-slate-400">Online</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[10px] text-white/40 font-light">Online</span>
           </div>
-          <div className="flex items-center gap-3 pl-4 border-l border-slate-700/50">
+          {/* Profile Pic & Name - Right Side */}
+          <div className="flex items-center gap-2 pl-3 border-l border-white/10">
             <div className="text-right">
-              <p className="font-medium text-sm text-white">{user?.firstName} {user?.lastName}</p>
-              <p className="text-xs text-cyan-400">{studentDetails?.branch}</p>
+              <p className="text-xs font-light text-white/80">{user?.firstName} {user?.lastName}</p>
+              <p className="text-[10px] text-violet-400/70 font-light">{studentDetails?.branch}</p>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
+              <span className="text-white text-xs font-medium">
+                {user?.firstName?.[0]}{user?.lastName?.[0]}
+              </span>
             </div>
           </div>
         </header>
 
         {/* Messages */}
         <div
-          className="flex-1 overflow-y-auto p-4 space-y-4"
+          className="flex-1 overflow-y-auto p-3 space-y-3"
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -307,12 +316,12 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center"
+                className="fixed inset-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-sm flex items-center justify-center"
               >
-                <div className="p-12 text-center rounded-2xl bg-slate-900/90 border border-cyan-500/30 shadow-xl shadow-cyan-500/10">
-                  <Upload className="w-16 h-16 mx-auto mb-4 text-cyan-400 animate-bounce" />
-                  <h3 className="text-xl font-display font-semibold mb-2 text-white">Drop your files here</h3>
-                  <p className="text-slate-400">PDF, DOCX, PPT supported</p>
+                <div className="p-8 text-center rounded-xl bg-[#111118] border border-violet-500/30">
+                  <Upload className="w-12 h-12 mx-auto mb-3 text-violet-400 animate-bounce" />
+                  <h3 className="text-sm font-light mb-1 text-white/90">Drop files here</h3>
+                  <p className="text-[10px] text-white/40 font-light">PDF, DOCX, PPT</p>
                 </div>
               </motion.div>
             )}
@@ -324,30 +333,30 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
+              className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse" : ""}`}
             >
               <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
                   message.role === "user"
-                    ? "bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/20"
-                    : "bg-slate-800 border border-slate-700"
+                    ? "bg-gradient-to-br from-violet-500 to-fuchsia-500"
+                    : "bg-white/5 border border-white/10"
                 }`}
               >
                 {message.role === "user" ? (
-                  <User className="w-5 h-5 text-white" />
+                  <User className="w-3.5 h-3.5 text-white" />
                 ) : (
-                  <Bot className="w-5 h-5 text-cyan-400" />
+                  <Bot className="w-3.5 h-3.5 text-violet-400" />
                 )}
               </div>
               <div
-                className={`max-w-[70%] p-4 rounded-2xl ${
+                className={`max-w-[75%] p-3 rounded-xl ${
                   message.role === "user"
-                    ? "bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20"
-                    : "bg-slate-800/80 border border-slate-700/50 text-slate-200"
+                    ? "bg-gradient-to-br from-violet-500/90 to-fuchsia-500/90 text-white"
+                    : "bg-white/5 border border-white/10 text-white/70"
                 }`}
               >
-                <p className="whitespace-pre-wrap">{message.content}</p>
-                <p className={`text-xs mt-2 ${message.role === "user" ? "text-cyan-100" : "text-slate-500"}`}>
+                <p className="whitespace-pre-wrap text-xs font-light leading-relaxed">{message.content}</p>
+                <p className={`text-[9px] mt-1.5 font-light ${message.role === "user" ? "text-white/60" : "text-white/30"}`}>
                   {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </p>
               </div>
@@ -358,25 +367,25 @@ const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex gap-3"
+              className="flex gap-2"
             >
-              <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
-                <Bot className="w-5 h-5 text-cyan-400" />
+              <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                <Bot className="w-3.5 h-3.5 text-violet-400" />
               </div>
-              <div className="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl">
+              <div className="bg-white/5 border border-white/10 p-3 rounded-xl">
                 <div className="flex gap-1">
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-cyan-400"
+                    className="w-1.5 h-1.5 rounded-full bg-violet-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                   />
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-cyan-400"
+                    className="w-1.5 h-1.5 rounded-full bg-violet-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
                   />
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-cyan-400"
+                    className="w-1.5 h-1.5 rounded-full bg-violet-400"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
                   />
@@ -388,13 +397,13 @@ const Home = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-4">
-          <div className="p-2 flex items-end gap-2 rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-lg">
+        <div className="p-3">
+          <div className="p-1.5 flex items-end gap-1.5 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10">
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 rounded-xl hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-lg hover:bg-white/5 transition-colors"
             >
-              <Paperclip className="w-5 h-5 text-slate-400" />
+              <Paperclip className="w-4 h-4 text-white/40" />
             </button>
             <textarea
               value={input}
@@ -405,16 +414,16 @@ const Home = () => {
                   handleSend();
                 }
               }}
-              placeholder="Ask about your study materials..."
-              className="flex-1 bg-transparent resize-none outline-none text-white placeholder:text-slate-500 max-h-32 min-h-[44px] py-3 px-2"
+              placeholder="Ask about your materials..."
+              className="flex-1 bg-transparent resize-none outline-none text-white/80 placeholder:text-white/30 max-h-24 min-h-[36px] py-2 px-1.5 text-xs font-light"
               rows={1}
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="p-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20"
+              className="p-2 rounded-lg bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-400 hover:to-fuchsia-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              <Send className="w-5 h-5 text-white" />
+              <Send className="w-4 h-4 text-white" />
             </button>
           </div>
         </div>
