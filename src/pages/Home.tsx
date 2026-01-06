@@ -294,6 +294,12 @@ const Home = () => {
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span className="text-sm text-muted-foreground">Online</span>
           </div>
+          <div className="flex items-center gap-3 pl-3 border-l border-border">
+            <div className="text-right">
+              <p className="font-medium text-sm">{user?.firstName} {user?.lastName}</p>
+              <p className="text-xs text-muted-foreground">{studentDetails?.branch}</p>
+            </div>
+          </div>
         </header>
 
         {/* Messages */}
