@@ -12,7 +12,7 @@ export const BackgroundOrbs = () => {
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `url(${heroBg})`,
-          backgroundSize: 'cover',
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
