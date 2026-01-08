@@ -152,7 +152,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen flex relative">
+    <div className="min-h-screen flex relative overflow-hidden">
       <BackgroundOrbs />
 
       {/* Sidebar Overlay for mobile */}
@@ -172,60 +172,60 @@ const Home = () => {
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.aside
-            initial={{ x: -300, opacity: 0 }}
+            initial={{ x: -260, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
+            exit={{ x: -260, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed md:relative z-20 w-72 h-screen"
+            className="fixed md:relative z-20 w-60 md:w-72 h-screen flex-shrink-0"
           >
-            <div className="glass-card h-full rounded-none p-4 flex flex-col">
+            <div className="glass-card h-full rounded-none p-3 md:p-4 flex flex-col">
               {/* Close button for mobile */}
               <button
                 onClick={() => setIsSidebarOpen(false)}
-                className="md:hidden absolute top-4 right-4 p-2 rounded-xl hover:bg-muted transition-colors"
+                className="md:hidden absolute top-3 right-3 p-1.5 rounded-lg hover:bg-muted transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
 
               {/* Logo */}
-              <div className="flex items-center gap-3 mb-6 p-2">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-primary-foreground" />
+              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6 p-1.5 md:p-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <h1 className="font-display font-bold text-lg gradient-text">LearnAI</h1>
-                  <p className="text-xs text-muted-foreground">Smart Learning</p>
+                  <h1 className="font-display font-bold text-base md:text-lg gradient-text">LearnAI</h1>
+                  <p className="text-[10px] md:text-xs text-muted-foreground">Smart Learning</p>
                 </div>
               </div>
 
               {/* User Info */}
-              <div className="glass-card p-4 mb-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <span className="text-primary-foreground font-semibold">
+              <div className="glass-card p-3 md:p-4 mb-3 md:mb-4">
+                <div className="flex items-center gap-2 md:gap-3 mb-1.5 md:mb-2">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                    <span className="text-primary-foreground font-semibold text-xs md:text-base">
                       {user?.firstName?.[0]}{user?.lastName?.[0]}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{user?.firstName} {user?.lastName}</p>
-                    <p className="text-xs text-muted-foreground truncate">{studentDetails?.branch}</p>
+                    <p className="font-medium truncate text-sm md:text-base">{user?.firstName} {user?.lastName}</p>
+                    <p className="text-[10px] md:text-xs text-muted-foreground truncate">{studentDetails?.branch}</p>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-[10px] md:text-xs text-muted-foreground">
                   {studentDetails?.yearOfStudy} • {studentDetails?.semester}
                 </p>
               </div>
 
               {/* Uploaded Files */}
               <div className="flex-1 overflow-hidden flex flex-col">
-                <h3 className="text-sm font-medium text-muted-foreground mb-3 px-2">
+                <h3 className="text-xs md:text-sm font-medium text-muted-foreground mb-2 md:mb-3 px-1.5 md:px-2">
                   Study Materials ({uploadedFiles.length})
                 </h3>
-                <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+                <div className="flex-1 overflow-y-auto space-y-1.5 md:space-y-2 pr-1.5 md:pr-2">
                   {uploadedFiles.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">
-                      <FileText className="w-10 h-10 mx-auto mb-2 opacity-50" />
-                      <p className="text-sm">No files uploaded yet</p>
+                    <div className="text-center py-6 md:py-8 text-muted-foreground">
+                      <FileText className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-1.5 md:mb-2 opacity-50" />
+                      <p className="text-xs md:text-sm">No files uploaded yet</p>
                     </div>
                   ) : (
                     uploadedFiles.map((file) => (
@@ -233,18 +233,18 @@ const Home = () => {
                         key={file.id}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
+                        className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg md:rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
                       >
-                        <File className="w-4 h-4 text-primary flex-shrink-0" />
+                        <File className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm truncate">{file.name}</p>
-                          <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
+                          <p className="text-xs md:text-sm truncate">{file.name}</p>
+                          <p className="text-[10px] md:text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
                         </div>
                         <button
                           onClick={() => removeFile(file.id)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-destructive/20 rounded"
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 md:p-1 hover:bg-destructive/20 rounded"
                         >
-                          <X className="w-4 h-4 text-destructive" />
+                          <X className="w-3.5 h-3.5 md:w-4 md:h-4 text-destructive" />
                         </button>
                       </motion.div>
                     ))
@@ -252,7 +252,7 @@ const Home = () => {
                 </div>
 
                 {/* Upload Button */}
-                <div className="mt-4">
+                <div className="mt-3 md:mt-4">
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -264,29 +264,29 @@ const Home = () => {
                   <GlowButton
                     variant="secondary"
                     size="md"
-                    className="w-full"
+                    className="w-full h-8 md:h-10 text-xs md:text-sm"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <Upload className="w-4 h-4" />
+                    <Upload className="w-3.5 h-3.5 md:w-4 md:h-4" />
                     Upload Materials
                   </GlowButton>
                 </div>
               </div>
 
               {/* Bottom Actions */}
-              <div className="mt-4 pt-4 border-t border-border space-y-2">
+              <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border space-y-1.5 md:space-y-2">
                 <button
                   onClick={() => navigate("/profile")}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors text-sm"
+                  className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg md:rounded-xl hover:bg-muted transition-colors text-xs md:text-sm"
                 >
-                  <Settings className="w-4 h-4" />
+                  <Settings className="w-3.5 h-3.5 md:w-4 md:h-4" />
                   Profile & Progress
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-destructive/10 transition-colors text-sm text-destructive"
+                  className="w-full flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg md:rounded-xl hover:bg-destructive/10 transition-colors text-xs md:text-sm text-destructive"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-3.5 h-3.5 md:w-4 md:h-4" />
                   Logout
                 </button>
               </div>
@@ -296,30 +296,30 @@ const Home = () => {
       </AnimatePresence>
 
       {/* Main Chat Area */}
-      <main className="flex-1 flex flex-col min-h-screen z-10">
+      <main className="flex-1 flex flex-col min-h-screen z-10 w-full">
         {/* Header */}
-        <header className="glass-card rounded-none md:rounded-b-2xl p-4 flex items-center gap-4">
+        <header className="glass-card rounded-none md:rounded-b-2xl p-3 md:p-4 flex items-center gap-2 md:gap-4 flex-shrink-0">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 rounded-xl hover:bg-muted transition-colors"
+            className="p-1.5 md:p-2 rounded-lg md:rounded-xl hover:bg-muted transition-colors"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-4 h-4 md:w-5 md:h-5" />
           </button>
-          <div className="flex-1">
-            <h2 className="font-display font-semibold">AI Study Assistant</h2>
-            <p className="text-xs text-muted-foreground">
-              Ask questions about your uploaded materials
+          <div className="flex-1 min-w-0">
+            <h2 className="font-display font-semibold text-sm md:text-base">AI Study Assistant</h2>
+            <p className="text-[10px] md:text-xs text-muted-foreground truncate">
+              Ask questions about your materials
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm text-muted-foreground">Online</span>
+          <div className="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-xs md:text-sm text-muted-foreground">Online</span>
           </div>
         </header>
 
         {/* Messages */}
         <div
-          className="flex-1 overflow-y-auto p-4 space-y-4"
+          className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4"
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -333,10 +333,10 @@ const Home = () => {
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center"
               >
-                <div className="glass-card p-12 text-center">
-                  <Upload className="w-16 h-16 mx-auto mb-4 text-primary animate-bounce" />
-                  <h3 className="text-xl font-display font-semibold mb-2">Drop your files here</h3>
-                  <p className="text-muted-foreground">PDF, DOCX, PPT supported</p>
+                <div className="glass-card p-8 md:p-12 text-center">
+                  <Upload className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 text-primary animate-bounce" />
+                  <h3 className="text-base md:text-xl font-display font-semibold mb-1.5 md:mb-2">Drop your files here</h3>
+                  <p className="text-muted-foreground text-sm md:text-base">PDF, DOCX, PPT supported</p>
                 </div>
               </motion.div>
             )}
@@ -348,30 +348,30 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
+              className={`flex gap-2 md:gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
             >
               <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                className={`w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 ${
                   message.role === "user"
                     ? "bg-gradient-to-br from-primary to-secondary"
                     : "bg-muted"
                 }`}
               >
                 {message.role === "user" ? (
-                  <User className="w-5 h-5 text-primary-foreground" />
+                  <User className="w-4 h-4 md:w-5 md:h-5 text-primary-foreground" />
                 ) : (
-                  <Bot className="w-5 h-5 text-primary" />
+                  <Bot className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                 )}
               </div>
               <div
-                className={`max-w-[70%] p-4 rounded-2xl ${
+                className={`max-w-[75%] md:max-w-[70%] p-3 md:p-4 rounded-xl md:rounded-2xl ${
                   message.role === "user"
                     ? "chat-bubble-user"
                     : "chat-bubble-ai"
                 }`}
               >
-                <p className="whitespace-pre-wrap">{message.content}</p>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="whitespace-pre-wrap text-sm md:text-base">{message.content}</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground mt-1.5 md:mt-2">
                   {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </p>
               </div>
@@ -382,25 +382,25 @@ const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex gap-3"
+              className="flex gap-2 md:gap-3"
             >
-              <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-                <Bot className="w-5 h-5 text-primary" />
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-muted flex items-center justify-center">
+                <Bot className="w-4 h-4 md:w-5 md:h-5 text-primary" />
               </div>
-              <div className="chat-bubble-ai p-4 rounded-2xl">
+              <div className="chat-bubble-ai p-3 md:p-4 rounded-xl md:rounded-2xl">
                 <div className="flex gap-1">
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-primary"
+                    className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                   />
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-primary"
+                    className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
                   />
                   <motion.div
-                    className="w-2 h-2 rounded-full bg-primary"
+                    className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
                   />
@@ -412,13 +412,13 @@ const Home = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-4">
-          <GlassCard className="p-2 flex items-end gap-2">
+        <div className="p-2 md:p-4 flex-shrink-0">
+          <GlassCard className="p-1.5 md:p-2 flex items-end gap-1.5 md:gap-2">
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 rounded-xl hover:bg-muted transition-colors"
+              className="p-2 md:p-3 rounded-lg md:rounded-xl hover:bg-muted transition-colors"
             >
-              <Paperclip className="w-5 h-5 text-muted-foreground" />
+              <Paperclip className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </button>
             <textarea
               value={input}
@@ -430,7 +430,7 @@ const Home = () => {
                 }
               }}
               placeholder="Ask about your study materials..."
-              className="flex-1 bg-transparent resize-none outline-none text-foreground placeholder:text-muted-foreground max-h-32 min-h-[44px] py-3 px-2"
+              className="flex-1 bg-transparent resize-none outline-none text-foreground placeholder:text-muted-foreground max-h-24 md:max-h-32 min-h-[36px] md:min-h-[44px] py-2 md:py-3 px-1.5 md:px-2 text-sm md:text-base"
               rows={1}
             />
             <GlowButton
@@ -438,9 +438,9 @@ const Home = () => {
               size="md"
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="rounded-xl"
+              className="rounded-lg md:rounded-xl h-8 w-8 md:h-10 md:w-10 p-0 flex items-center justify-center"
             >
-              <Send className="w-5 h-5" />
+              <Send className="w-4 h-4 md:w-5 md:h-5" />
             </GlowButton>
           </GlassCard>
         </div>

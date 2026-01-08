@@ -67,52 +67,52 @@ const StudentDetails = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
+    <div className="min-h-screen flex items-center justify-center p-3 md:p-4 relative">
       <BackgroundOrbs />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-lg z-10"
+        className="w-full max-w-[320px] md:max-w-lg z-10"
       >
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 md:p-8">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4 md:mb-8">
             <motion.div
-              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-4"
+              className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-primary to-secondary mb-2 md:mb-4"
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <GraduationCap className="w-8 h-8 text-primary-foreground" />
+              <GraduationCap className="w-5 h-5 md:w-8 md:h-8 text-primary-foreground" />
             </motion.div>
-            <h1 className="text-3xl font-display font-bold gradient-text mb-2">
+            <h1 className="text-xl md:text-3xl font-display font-bold gradient-text mb-1 md:mb-2">
               Hello, {user?.firstName || "Student"}!
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-xs md:text-base">
               Tell us about your academic journey
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
             <div className="relative">
               <GlowInput
                 type="text"
                 placeholder="College / University Name"
                 value={collegeName}
                 onChange={(e) => setCollegeName(e.target.value)}
-                className="pl-12"
+                className="pl-10 md:pl-12 text-sm md:text-base h-10 md:h-12"
               />
-              <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Building2 className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
 
             <div className="relative">
               <select
                 value={yearOfStudy}
                 onChange={(e) => setYearOfStudy(e.target.value)}
-                className="w-full px-4 py-3 pl-12 rounded-xl bg-input border border-border text-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 appearance-none cursor-pointer"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 pl-10 md:pl-12 rounded-xl bg-input border border-border text-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 appearance-none cursor-pointer text-sm md:text-base h-10 md:h-12"
               >
                 <option value="" disabled className="bg-background text-muted-foreground">
                   Select Year of Study
@@ -123,14 +123,14 @@ const StudentDetails = () => {
                   </option>
                 ))}
               </select>
-              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Calendar className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
 
             <div className="relative">
               <select
                 value={semester}
                 onChange={(e) => setSemester(e.target.value)}
-                className="w-full px-4 py-3 pl-12 rounded-xl bg-input border border-border text-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 appearance-none cursor-pointer"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 pl-10 md:pl-12 rounded-xl bg-input border border-border text-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 appearance-none cursor-pointer text-sm md:text-base h-10 md:h-12"
               >
                 <option value="" disabled className="bg-background text-muted-foreground">
                   Select Semester
@@ -141,14 +141,14 @@ const StudentDetails = () => {
                   </option>
                 ))}
               </select>
-              <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <BookOpen className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
 
             <div className="relative">
               <select
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}
-                className="w-full px-4 py-3 pl-12 rounded-xl bg-input border border-border text-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 appearance-none cursor-pointer"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 pl-10 md:pl-12 rounded-xl bg-input border border-border text-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 appearance-none cursor-pointer text-sm md:text-base h-10 md:h-12"
               >
                 <option value="" disabled className="bg-background text-muted-foreground">
                   Select Branch / Department
@@ -159,26 +159,26 @@ const StudentDetails = () => {
                   </option>
                 ))}
               </select>
-              <GraduationCap className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <GraduationCap className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
 
             <GlowButton
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full mt-6"
+              className="w-full mt-4 md:mt-6 h-9 md:h-11 text-sm md:text-base"
               disabled={isLoading}
             >
               {isLoading ? (
                 <motion.div
-                  className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
+                  className="w-4 h-4 md:w-5 md:h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 />
               ) : (
                 <>
                   Continue to Dashboard
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                 </>
               )}
             </GlowButton>

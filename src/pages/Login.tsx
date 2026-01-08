@@ -58,45 +58,45 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
+    <div className="min-h-screen flex items-center justify-center p-3 md:p-4 relative">
       <BackgroundOrbs />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md z-10"
+        className="w-full max-w-[320px] md:max-w-md z-10"
       >
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 md:p-8">
           {/* Logo & Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4 md:mb-8">
             <motion.div
-              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-4"
+              className="inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-primary to-secondary mb-2 md:mb-4"
               initial={{ rotate: -10 }}
               animate={{ rotate: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Sparkles className="w-8 h-8 text-primary-foreground" />
+              <Sparkles className="w-5 h-5 md:w-8 md:h-8 text-primary-foreground" />
             </motion.div>
-            <h1 className="text-3xl font-display font-bold gradient-text mb-2">
+            <h1 className="text-xl md:text-3xl font-display font-bold gradient-text mb-1 md:mb-2">
               Welcome Back
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-xs md:text-base">
               Sign in to continue your learning journey
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
             <div className="relative">
               <GlowInput
                 type="email"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-12"
+                className="pl-10 md:pl-12 text-sm md:text-base h-10 md:h-12"
               />
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Mail className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
             </div>
 
             <div className="relative">
@@ -105,20 +105,20 @@ const Login = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-12 pr-12"
+                className="pl-10 md:pl-12 pr-10 md:pr-12 text-sm md:text-base h-10 md:h-12"
               />
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Lock className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? <EyeOff className="w-4 h-4 md:w-5 md:h-5" /> : <Eye className="w-4 h-4 md:w-5 md:h-5" />}
               </button>
             </div>
 
             <div className="flex justify-end">
-              <button type="button" className="text-sm text-primary hover:underline">
+              <button type="button" className="text-xs md:text-sm text-primary hover:underline">
                 Forgot password?
               </button>
             </div>
@@ -127,12 +127,12 @@ const Login = () => {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full"
+              className="w-full h-9 md:h-11 text-sm md:text-base"
               disabled={isLoading}
             >
               {isLoading ? (
                 <motion.div
-                  className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
+                  className="w-4 h-4 md:w-5 md:h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 />
@@ -143,9 +143,9 @@ const Login = () => {
           </form>
 
           {/* Divider */}
-          <div className="flex items-center gap-4 my-6">
+          <div className="flex items-center gap-3 md:gap-4 my-4 md:my-6">
             <div className="flex-1 h-px bg-border" />
-            <span className="text-sm text-muted-foreground">or</span>
+            <span className="text-xs md:text-sm text-muted-foreground">or</span>
             <div className="flex-1 h-px bg-border" />
           </div>
 
@@ -153,10 +153,10 @@ const Login = () => {
           <GlowButton
             variant="google"
             size="lg"
-            className="w-full"
+            className="w-full h-9 md:h-11 text-sm md:text-base"
             onClick={handleGoogleSignIn}
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -178,7 +178,7 @@ const Login = () => {
           </GlowButton>
 
           {/* Sign Up Link */}
-          <p className="text-center mt-6 text-muted-foreground">
+          <p className="text-center mt-4 md:mt-6 text-muted-foreground text-xs md:text-base">
             Don't have an account?{" "}
             <Link to="/signup" className="text-primary hover:underline font-medium">
               Sign up
