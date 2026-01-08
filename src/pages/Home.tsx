@@ -165,7 +165,7 @@ const Home = () => {
             transition={{ duration: 0.3 }}
             className="fixed md:relative z-20 w-72 h-screen"
           >
-            <div className="glass-card h-full rounded-none md:rounded-r-2xl p-4 flex flex-col">
+            <div className="glass-card h-full rounded-none p-4 flex flex-col">
               {/* Logo */}
               <div className="flex items-center gap-3 mb-6 p-2">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
