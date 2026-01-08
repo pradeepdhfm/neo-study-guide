@@ -47,7 +47,7 @@ const Home = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -155,6 +155,19 @@ const Home = () => {
     <div className="min-h-screen flex relative">
       <BackgroundOrbs />
 
+      {/* Sidebar Overlay for mobile */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-10 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Sidebar */}
       <AnimatePresence>
         {isSidebarOpen && (
@@ -166,6 +179,14 @@ const Home = () => {
             className="fixed md:relative z-20 w-72 h-screen"
           >
             <div className="glass-card h-full rounded-none p-4 flex flex-col">
+              {/* Close button for mobile */}
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="md:hidden absolute top-4 right-4 p-2 rounded-xl hover:bg-muted transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
               {/* Logo */}
               <div className="flex items-center gap-3 mb-6 p-2">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
