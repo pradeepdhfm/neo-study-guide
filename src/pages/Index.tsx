@@ -95,25 +95,25 @@ const Index = () => {
         transition={{ duration: 0.5 }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:px-6">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-3 py-2 md:p-4 md:px-6">
+          <div className="flex items-center gap-2 md:gap-3">
             <motion.div 
-              className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center"
+              className="w-7 h-7 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center"
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <Sparkles className="w-5 h-5 text-primary-foreground" />
+              <Sparkles className="w-3.5 h-3.5 md:w-5 md:h-5 text-primary-foreground" />
             </motion.div>
-            <span className="font-display font-bold text-xl gradient-text">AI Personalized Learning</span>
+            <span className="font-display font-bold text-sm md:text-xl gradient-text">AI Learning</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 md:gap-3">
             <Link to="/login">
-              <GlowButton variant="ghost" size="sm">
+              <GlowButton variant="ghost" size="sm" className="text-xs md:text-sm px-2 py-1 md:px-3 md:py-1.5 h-7 md:h-9">
                 Login
               </GlowButton>
             </Link>
             <Link to="/signup">
-              <GlowButton variant="primary" size="sm">
+              <GlowButton variant="primary" size="sm" className="text-xs md:text-sm px-2 py-1 md:px-3 md:py-1.5 h-7 md:h-9">
                 Sign Up
               </GlowButton>
             </Link>
@@ -122,16 +122,16 @@ const Index = () => {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-4 md:px-6 pt-32 md:pt-40 pb-20 min-h-screen flex items-center">
+      <section className="relative z-10 px-3 md:px-6 pt-20 md:pt-40 pb-12 md:pb-20 min-h-screen flex items-center">
         <div className="max-w-5xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="mb-8"
+            className="mb-4 md:mb-8"
           >
             <motion.div
-              className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-6"
+              className="inline-flex items-center justify-center w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-gradient-to-br from-primary to-secondary mb-3 md:mb-6"
               animate={{ 
                 boxShadow: [
                   "0 0 20px hsl(var(--primary) / 0.4)",
@@ -141,7 +141,7 @@ const Index = () => {
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Brain className="w-10 h-10 text-primary-foreground" />
+              <Brain className="w-6 h-6 md:w-10 md:h-10 text-primary-foreground" />
             </motion.div>
           </motion.div>
 
@@ -149,7 +149,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight"
+            className="text-2xl md:text-6xl lg:text-7xl font-display font-bold mb-3 md:mb-6 leading-tight"
           >
             Personalized AI Learning,
             <br />
@@ -160,7 +160,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
+            className="text-sm md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed px-2"
           >
             Learn smarter, not harder.
             <br />
@@ -171,16 +171,16 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-4"
           >
             <Link to="/signup">
-              <GlowButton variant="primary" size="lg" className="min-w-[200px]">
+              <GlowButton variant="primary" size="lg" className="min-w-[140px] md:min-w-[200px] text-sm md:text-base h-9 md:h-11 px-4 md:px-6">
                 Get Started
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
               </GlowButton>
             </Link>
             <Link to="/login">
-              <GlowButton variant="ghost" size="lg" className="min-w-[200px]">
+              <GlowButton variant="ghost" size="lg" className="min-w-[140px] md:min-w-[200px] text-sm md:text-base h-9 md:h-11 px-4 md:px-6">
                 Login
               </GlowButton>
             </Link>
@@ -205,32 +205,32 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="relative z-10 px-4 md:px-6 py-20">
+      <section className="relative z-10 px-3 md:px-6 py-10 md:py-20">
         <div className="max-w-6xl mx-auto">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
+          <AnimatedSection className="text-center mb-8 md:mb-16">
+            <h2 className="text-xl md:text-5xl font-display font-bold mb-2 md:mb-4">
               What This Platform <span className="gradient-text">Includes</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-xs md:text-lg px-2">
               Everything you need for a smarter, more personalized learning experience
             </p>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
             {features.map((feature, index) => (
               <AnimatedSection key={feature.title} delay={index * 0.1}>
-                <GlassCard className="p-8 h-full group hover:scale-[1.02] transition-all duration-300">
+                <GlassCard className="p-4 md:p-8 h-full group hover:scale-[1.02] transition-all duration-300">
                   <motion.div 
-                    className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary mb-5 flex items-center justify-center"
+                    className="w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl bg-gradient-to-br from-primary to-secondary mb-3 md:mb-5 flex items-center justify-center"
                     whileHover={{ rotate: 10, scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
-                    <feature.icon className="w-7 h-7 text-primary-foreground" />
+                    <feature.icon className="w-5 h-5 md:w-7 md:h-7 text-primary-foreground" />
                   </motion.div>
-                  <h3 className="text-xl font-display font-semibold mb-3 group-hover:text-primary transition-colors">
+                  <h3 className="text-base md:text-xl font-display font-semibold mb-1.5 md:mb-3 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                  <p className="text-muted-foreground leading-relaxed text-xs md:text-base">{feature.description}</p>
                 </GlassCard>
               </AnimatedSection>
             ))}
@@ -239,20 +239,20 @@ const Index = () => {
       </section>
 
       {/* Quotes Section */}
-      <section className="relative z-10 px-4 md:px-6 py-20 overflow-hidden">
+      <section className="relative z-10 px-3 md:px-6 py-10 md:py-20 overflow-hidden">
         <div className="max-w-6xl mx-auto">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+          <AnimatedSection className="text-center mb-6 md:mb-12">
+            <h2 className="text-xl md:text-4xl font-display font-bold mb-2 md:mb-4">
               Why Students <span className="gradient-text">Love Us</span>
             </h2>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {quotes.map((quote, index) => (
               <AnimatedSection key={index} delay={index * 0.1}>
-                <GlassCard className="p-6 h-full flex items-start gap-4 hover:scale-[1.02] transition-transform duration-300">
-                  <Quote className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                  <p className="text-foreground/90 italic leading-relaxed">{quote}</p>
+                <GlassCard className="p-3 md:p-6 h-full flex items-start gap-2 md:gap-4 hover:scale-[1.02] transition-transform duration-300">
+                  <Quote className="w-5 h-5 md:w-8 md:h-8 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-foreground/90 italic leading-relaxed text-xs md:text-base">{quote}</p>
                 </GlassCard>
               </AnimatedSection>
             ))}
@@ -261,18 +261,18 @@ const Index = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative z-10 px-4 md:px-6 py-20">
+      <section className="relative z-10 px-3 md:px-6 py-10 md:py-20">
         <div className="max-w-5xl mx-auto">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
+          <AnimatedSection className="text-center mb-8 md:mb-16">
+            <h2 className="text-xl md:text-5xl font-display font-bold mb-2 md:mb-4">
               How It <span className="gradient-text">Works</span>
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+            <p className="text-muted-foreground max-w-xl mx-auto text-xs md:text-lg">
               Get started in just three simple steps
             </p>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {steps.map((step, index) => (
               <AnimatedSection key={step.title} delay={index * 0.2}>
                 <div className="relative">
@@ -281,21 +281,21 @@ const Index = () => {
                     <div className="hidden md:block absolute top-14 left-[60%] w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent" />
                   )}
                   
-                  <GlassCard className="p-8 text-center relative z-10 hover:scale-105 transition-transform duration-300">
+                  <GlassCard className="p-4 md:p-8 text-center relative z-10 hover:scale-105 transition-transform duration-300">
                     {/* Step number */}
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-bold text-sm">
+                    <div className="absolute -top-3 md:-top-4 left-1/2 -translate-x-1/2 w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-bold text-xs md:text-sm">
                       {index + 1}
                     </div>
                     
                     <motion.div 
-                      className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 mx-auto mb-5 flex items-center justify-center"
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 mx-auto mb-3 md:mb-5 flex items-center justify-center"
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <step.icon className="w-8 h-8 text-primary" />
+                      <step.icon className="w-6 h-6 md:w-8 md:h-8 text-primary" />
                     </motion.div>
-                    <h3 className="text-lg font-display font-semibold mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
+                    <h3 className="text-sm md:text-lg font-display font-semibold mb-1.5 md:mb-3">{step.title}</h3>
+                    <p className="text-muted-foreground text-xs md:text-sm">{step.description}</p>
                   </GlassCard>
                 </div>
               </AnimatedSection>
@@ -305,28 +305,28 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 px-4 md:px-6 py-20">
+      <section className="relative z-10 px-3 md:px-6 py-10 md:py-20">
         <AnimatedSection className="max-w-3xl mx-auto">
-          <GlassCard glow className="p-10 md:p-14 text-center">
+          <GlassCard glow className="p-6 md:p-14 text-center">
             <motion.div 
-              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary mx-auto mb-6 flex items-center justify-center"
+              className="w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-gradient-to-br from-primary to-secondary mx-auto mb-4 md:mb-6 flex items-center justify-center"
               animate={{ 
                 scale: [1, 1.05, 1],
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Sparkles className="w-10 h-10 text-primary-foreground" />
+              <Sparkles className="w-6 h-6 md:w-10 md:h-10 text-primary-foreground" />
             </motion.div>
-            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
+            <h2 className="text-lg md:text-4xl font-display font-bold mb-2 md:mb-4">
               Ready to Transform Your Learning?
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-lg mx-auto text-lg">
+            <p className="text-muted-foreground mb-4 md:mb-8 max-w-lg mx-auto text-xs md:text-lg">
               Join thousands of students already using AI to master their subjects faster and more effectively.
             </p>
             <Link to="/signup">
-              <GlowButton variant="primary" size="lg">
+              <GlowButton variant="primary" size="lg" className="text-sm md:text-base h-9 md:h-11 px-4 md:px-6">
                 Get Started for Free
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
               </GlowButton>
             </Link>
           </GlassCard>
