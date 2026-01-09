@@ -36,14 +36,15 @@ interface UploadedFile {
 }
 
 const Home = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "assistant",
-      content: "Hello! 👋 I'm your AI learning assistant. Upload your study materials and I'll help you understand them better. Ask me anything about your subjects!",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  const quickActions = [
+    { label: "Summarize", icon: FileText },
+    { label: "Explain", icon: Bot },
+    { label: "Quiz Me", icon: Sparkles },
+    { label: "Key Points", icon: FileText },
+  ];
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
@@ -72,6 +73,7 @@ const Home = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+    setShowWelcome(false);
 
     // Simulate AI response
     setTimeout(() => {
@@ -341,6 +343,54 @@ const Home = () => {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Welcome Screen */}
+          {showWelcome && messages.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center justify-center h-full py-8"
+            >
+              <motion.div
+                className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-4 flex items-center justify-center"
+                animate={{ 
+                  boxShadow: [
+                    "0 0 20px hsl(var(--primary) / 0.3)",
+                    "0 0 40px hsl(var(--primary) / 0.5)",
+                    "0 0 20px hsl(var(--primary) / 0.3)"
+                  ]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Bot className="w-7 h-7 md:w-10 md:h-10 text-primary-foreground" />
+              </motion.div>
+              <h2 className="text-lg md:text-2xl font-display font-bold mb-2 text-center">
+                Hi, I'm your AI Assistant
+              </h2>
+              <p className="text-xs md:text-sm text-muted-foreground mb-6 text-center px-4">
+                Upload materials or ask me anything about your studies
+              </p>
+              
+              {/* Quick Action Tabs */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {quickActions.map((action) => (
+                  <motion.button
+                    key={action.label}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setInput(action.label + " this topic");
+                      setShowWelcome(false);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 hover:bg-muted border border-border/50 text-xs md:text-sm transition-colors"
+                  >
+                    <action.icon className="w-3 h-3 md:w-4 md:h-4 text-primary" />
+                    {action.label}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {messages.map((message, index) => (
             <motion.div

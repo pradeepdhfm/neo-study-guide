@@ -216,21 +216,34 @@ const Index = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
+          {/* Mobile: Compact tabs in a row */}
+          <div className="flex flex-wrap justify-center gap-2 md:hidden">
             {features.map((feature, index) => (
               <AnimatedSection key={feature.title} delay={index * 0.1}>
-                <GlassCard className="p-4 md:p-8 h-full group hover:scale-[1.02] transition-all duration-300">
+                <GlassCard className="px-3 py-2 flex items-center gap-2 hover:scale-[1.02] transition-all duration-300">
+                  <feature.icon className="w-4 h-4 text-primary flex-shrink-0" />
+                  <span className="text-xs font-medium">{feature.title.split(' ').slice(0, 2).join(' ')}</span>
+                </GlassCard>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          {/* Desktop: Full cards */}
+          <div className="hidden md:grid md:grid-cols-2 gap-6">
+            {features.map((feature, index) => (
+              <AnimatedSection key={feature.title} delay={index * 0.1}>
+                <GlassCard className="p-8 h-full group hover:scale-[1.02] transition-all duration-300">
                   <motion.div 
-                    className="w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl bg-gradient-to-br from-primary to-secondary mb-3 md:mb-5 flex items-center justify-center"
+                    className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary mb-5 flex items-center justify-center"
                     whileHover={{ rotate: 10, scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
-                    <feature.icon className="w-5 h-5 md:w-7 md:h-7 text-primary-foreground" />
+                    <feature.icon className="w-7 h-7 text-primary-foreground" />
                   </motion.div>
-                  <h3 className="text-base md:text-xl font-display font-semibold mb-1.5 md:mb-3 group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-display font-semibold mb-3 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed text-xs md:text-base">{feature.description}</p>
+                  <p className="text-muted-foreground leading-relaxed text-base">{feature.description}</p>
                 </GlassCard>
               </AnimatedSection>
             ))}
