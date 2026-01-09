@@ -26,11 +26,20 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
+interface ChatAttachment {
+  id: string;
+  name: string;
+  type: string;
+  size: number;
+  url?: string;
+}
+
 interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  attachments?: ChatAttachment[];
 }
 
 interface UploadedFile {
@@ -62,6 +71,8 @@ const Home = () => {
     { id: "3", title: "OS concepts", date: "2 days ago" },
   ]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const chatFileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user, studentDetails, logout } = useAuth();
   const navigate = useNavigate();
@@ -132,6 +143,61 @@ const Home = () => {
         });
       }
     });
+  };
+
+  const handleChatFileUpload = (files: FileList | null, type: "image" | "file" | "pdf") => {
+    if (!files) return;
+
+    const attachments: ChatAttachment[] = [];
+
+    Array.from(files).forEach((file) => {
+      const isImage = file.type.startsWith("image/");
+      const isPdf = file.type === "application/pdf" || file.name.match(/\.pdf$/i);
+      const isValidFile = type === "image" ? isImage : type === "pdf" ? isPdf : true;
+
+      if (isValidFile) {
+        const attachment: ChatAttachment = {
+          id: Date.now().toString() + Math.random(),
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          url: isImage ? URL.createObjectURL(file) : undefined,
+        };
+        attachments.push(attachment);
+      } else {
+        toast({
+          title: "Invalid File Type",
+          description: type === "image" ? "Please upload image files" : type === "pdf" ? "Please upload PDF files" : "Invalid file type",
+          variant: "destructive",
+        });
+      }
+    });
+
+    if (attachments.length > 0) {
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        role: "user",
+        content: "",
+        timestamp: new Date(),
+        attachments,
+      };
+
+      setMessages((prev) => [...prev, userMessage]);
+      setShowWelcome(false);
+      scrollToBottom();
+
+      // Simulate AI response
+      setTimeout(() => {
+        const aiResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: `I've received your ${attachments.length > 1 ? "files" : "file"}: ${attachments.map(a => a.name).join(", ")}. How can I help you with ${attachments.length > 1 ? "these" : "this"}?`,
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, aiResponse]);
+        scrollToBottom();
+      }, 1000);
+    }
   };
 
   const removeFile = (id: string) => {
@@ -445,7 +511,35 @@ const Home = () => {
                     : "chat-bubble-ai"
                 }`}
               >
-                <p className="whitespace-pre-wrap text-sm md:text-base">{message.content}</p>
+                {/* Attachments */}
+                {message.attachments && message.attachments.length > 0 && (
+                  <div className="mb-2 space-y-2">
+                    {message.attachments.map((attachment) => (
+                      <div key={attachment.id}>
+                        {attachment.type.startsWith("image/") && attachment.url ? (
+                          <img
+                            src={attachment.url}
+                            alt={attachment.name}
+                            className="max-w-full rounded-lg max-h-48 object-cover"
+                          />
+                        ) : (
+                          <div className="flex items-center gap-2 p-2 rounded-lg bg-muted/50">
+                            <File className="w-4 h-4 text-primary flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-xs truncate">{attachment.name}</p>
+                              <p className="text-[10px] text-muted-foreground">
+                                {formatFileSize(attachment.size)}
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {message.content && (
+                  <p className="whitespace-pre-wrap text-sm md:text-base">{message.content}</p>
+                )}
                 <p className="text-[10px] md:text-xs text-muted-foreground mt-1.5 md:mt-2">
                   {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </p>
@@ -488,6 +582,23 @@ const Home = () => {
 
         {/* Input Area */}
         <div className="p-2 md:p-4 flex-shrink-0 relative">
+          {/* Hidden file inputs */}
+          <input
+            ref={imageInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => handleChatFileUpload(e.target.files, "image")}
+            className="hidden"
+          />
+          <input
+            ref={chatFileInputRef}
+            type="file"
+            multiple
+            onChange={(e) => handleChatFileUpload(e.target.files, "file")}
+            className="hidden"
+          />
+
           {/* File Upload Menu */}
           <AnimatePresence>
             {showFileMenu && (
@@ -501,7 +612,7 @@ const Home = () => {
                   <div className="space-y-1">
                     <button
                       onClick={() => {
-                        fileInputRef.current?.click();
+                        imageInputRef.current?.click();
                         setShowFileMenu(false);
                       }}
                       className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
@@ -511,7 +622,7 @@ const Home = () => {
                     </button>
                     <button
                       onClick={() => {
-                        fileInputRef.current?.click();
+                        chatFileInputRef.current?.click();
                         setShowFileMenu(false);
                       }}
                       className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
@@ -521,7 +632,7 @@ const Home = () => {
                     </button>
                     <button
                       onClick={() => {
-                        fileInputRef.current?.click();
+                        chatFileInputRef.current?.click();
                         setShowFileMenu(false);
                       }}
                       className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
