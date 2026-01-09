@@ -12,7 +12,12 @@ import {
   File,
   Menu,
   LogOut,
-  Settings
+  Settings,
+  Plus,
+  MessageSquare,
+  Image,
+  FileUp,
+  MoreHorizontal
 } from "lucide-react";
 import { BackgroundOrbs } from "@/components/ui/BackgroundOrbs";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -50,6 +55,12 @@ const Home = () => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [showFileMenu, setShowFileMenu] = useState(false);
+  const [chatHistory] = useState([
+    { id: "1", title: "Binary Trees explained", date: "Today" },
+    { id: "2", title: "SQL Query help", date: "Yesterday" },
+    { id: "3", title: "OS concepts", date: "2 days ago" },
+  ]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user, studentDetails, logout } = useAuth();
@@ -200,22 +211,36 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* User Info */}
-              <div className="glass-card p-3 md:p-4 mb-3 md:mb-4">
-                <div className="flex items-center gap-2 md:gap-3 mb-1.5 md:mb-2">
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <span className="text-primary-foreground font-semibold text-xs md:text-base">
-                      {user?.firstName?.[0]}{user?.lastName?.[0]}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate text-sm md:text-base">{user?.firstName} {user?.lastName}</p>
-                    <p className="text-[10px] md:text-xs text-muted-foreground truncate">{studentDetails?.branch}</p>
-                  </div>
+              {/* New Chat Button */}
+              <button
+                onClick={() => {
+                  setMessages([]);
+                  setShowWelcome(true);
+                  setIsSidebarOpen(false);
+                }}
+                className="w-full flex items-center gap-2 p-2.5 md:p-3 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 hover:from-primary/30 hover:to-secondary/30 border border-primary/30 transition-colors mb-3 md:mb-4"
+              >
+                <Plus className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium">New Chat</span>
+              </button>
+
+              {/* Chat History */}
+              <div className="mb-3 md:mb-4">
+                <h3 className="text-xs font-medium text-muted-foreground mb-2 px-1.5 flex items-center gap-1.5">
+                  <MessageSquare className="w-3 h-3" />
+                  Chat History
+                </h3>
+                <div className="space-y-1">
+                  {chatHistory.map((chat) => (
+                    <button
+                      key={chat.id}
+                      className="w-full text-left p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <p className="text-xs truncate">{chat.title}</p>
+                      <p className="text-[10px] text-muted-foreground">{chat.date}</p>
+                    </button>
+                  ))}
                 </div>
-                <p className="text-[10px] md:text-xs text-muted-foreground">
-                  {studentDetails?.yearOfStudy} • {studentDetails?.semester}
-                </p>
               </div>
 
               {/* Uploaded Files */}
@@ -462,10 +487,64 @@ const Home = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-2 md:p-4 flex-shrink-0">
+        <div className="p-2 md:p-4 flex-shrink-0 relative">
+          {/* File Upload Menu */}
+          <AnimatePresence>
+            {showFileMenu && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                className="absolute bottom-16 md:bottom-20 left-2 md:left-4 z-20"
+              >
+                <GlassCard className="p-2 min-w-[140px]">
+                  <div className="space-y-1">
+                    <button
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                        setShowFileMenu(false);
+                      }}
+                      className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
+                    >
+                      <Image className="w-3.5 h-3.5 text-primary" />
+                      Image
+                    </button>
+                    <button
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                        setShowFileMenu(false);
+                      }}
+                      className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
+                    >
+                      <FileUp className="w-3.5 h-3.5 text-primary" />
+                      File
+                    </button>
+                    <button
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                        setShowFileMenu(false);
+                      }}
+                      className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
+                    >
+                      <FileText className="w-3.5 h-3.5 text-primary" />
+                      PDF
+                    </button>
+                    <button
+                      onClick={() => setShowFileMenu(false)}
+                      className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-xs"
+                    >
+                      <MoreHorizontal className="w-3.5 h-3.5 text-primary" />
+                      More
+                    </button>
+                  </div>
+                </GlassCard>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <GlassCard className="p-1.5 md:p-2 flex items-end gap-1.5 md:gap-2">
             <button
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() => setShowFileMenu(!showFileMenu)}
               className="p-2 md:p-3 rounded-lg md:rounded-xl hover:bg-muted transition-colors"
             >
               <Paperclip className="w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
